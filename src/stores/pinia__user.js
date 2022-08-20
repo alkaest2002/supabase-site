@@ -8,7 +8,9 @@ const handleApiError = (error) => {
 };
 
 supabase.auth.onAuthStateChange((event, session) => {
-  console.log(event, session)
+  console.log(event);
+  const userStore = useUserStore();
+  userStore.session = session
 })
 
 export const useUserStore = defineStore({
@@ -18,13 +20,19 @@ export const useUserStore = defineStore({
 
   state() {
     return {
-      user: null,
       userProfile: null,
       session: null,
     };
   },
 
   getters: {
+    user() {
+      return {
+        user: this.session?.user?.email,
+        ...this.userProfile
+      }
+    },
+    
     isLoggedIn() {
       return this.session != null;
     },
@@ -33,13 +41,8 @@ export const useUserStore = defineStore({
   actions: {
     async signup(email, password) {
       try {
-        const {
-          data: { user, session },
-          error: errorWhenSignup,
-        } = await supabase.auth.signUp({ email, password });
+        const { error: errorWhenSignup } = await supabase.auth.signUp({ email, password });
         if (errorWhenSignup) throw errorWhenSignup;
-        this.user = user;
-        this.session = session;
       } catch (error) {
         return handleApiError(error);
       }
@@ -47,13 +50,8 @@ export const useUserStore = defineStore({
 
     async signin(email, password) {
       try {
-        const {
-          data: { user, session },
-          error: errorWhenSignin,
-        } = await supabase.auth.signInWithPassword({ email, password });
+        const { error: errorWhenSignin } = await supabase.auth.signInWithPassword({ email, password });
         if (errorWhenSignin) throw errorWhenSignin;
-        this.user = user;
-        this.session = session;
         const { data, error: errorWhenFetchingUserProfile } = await supabase
           .from("profiles")
           .select();
@@ -66,27 +64,22 @@ export const useUserStore = defineStore({
     },
 
     async updateUser(payload) {
-      const { first_name, last_name, email, password, gdpr } = payload;
-      const userProfileData = { id: this.user.id, first_name, last_name, gdpr };
-      const userData = { email, password };
-      if (userData.email == this.user.email) delete userData.email;
-      if (!userData.password) delete userData.password;
+      const { first_name, last_name, email, password } = payload;
+      const userProfileData = { id: this.user.id, first_name, last_name };
+      const userAuth = { email, password };
+      if (userAuth.email == this.user.email) delete userAuth.email;
+      if (!userAuth.password) delete userAuth.password;
       try {
-        if (Object.keys(userData).length > 0) {
-          const {
-            data: { user, session },
-            error: errorWhenUpdatingUser,
-          } = await supabase.auth.updateUser(userData);
+        if (Object.keys(userAuth).length > 0) {
+          const { error: errorWhenUpdatingUser } = await supabase.auth.updateUser(userAuth);
           if (errorWhenUpdatingUser) throw errorWhenUpdatingUser;
-          this.user = user;
-          this.session = session;
         }
         const { error: errorWhenUpdatingUserProfile } = await supabase
           .from("profiles")
           .upsert(userProfileData);
         if (errorWhenUpdatingUserProfile) throw errorWhenUpdatingUserProfile;
         this.userProfile = userProfileData;
-        if (Object.keys(userData).length > 0)
+        if (Object.keys(userAuth).length > 0)
           return this.signout();
         return Promise.resolve(false);
       } catch (error) {

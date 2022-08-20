@@ -22,11 +22,7 @@ const userStore = useUserStore();
 const resultIsReady = ref(false);
 
 const initialValues = computed(() => {
-  const userData = {
-    ...userStore.userProfile,
-    email: userStore.user?.email,
-  };
-  return userData;
+  return userStore.user;
 });
 
 const onUserUpdate = async ({ formData, setErrors }) => {

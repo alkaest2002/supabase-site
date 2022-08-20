@@ -16,11 +16,8 @@ import { useUserStore } from "../stores/pinia__user";
 import SigninForm from "./Form__User_Signin.vue";
 
 const initialValues = {
-  name: import.meta.env.VITE_ADMIN_NAME || "",
-  surname: import.meta.env.VITE_ADMIN_SURNAME || "",
   email: import.meta.env.VITE_ADMIN_EMAIL || "",
   password: import.meta.env.VITE_ADMIN_PASSWORD || "",
-  gdpr: false,
 };
 
 const router = useRouter();

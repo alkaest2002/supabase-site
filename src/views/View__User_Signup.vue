@@ -22,8 +22,6 @@ const userStore = useUserStore();
 const resultIsReady = ref(false);
 
 const initialValues = {
-  first_name: "",
-  last_name: "",
   email: "",
   password: "",
   passwordConfirmation: "",
