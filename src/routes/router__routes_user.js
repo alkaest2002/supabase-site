@@ -8,7 +8,7 @@ import ViewUserVerifiedEmail from "../views/View__User_Verified_Email.vue";
 const isNotLoggedin = () => {
   const userStore = useUserStore();
   return !userStore.isLoggedIn;
-}
+};
 
 export default [
   {

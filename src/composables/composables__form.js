@@ -1,10 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { ref, watch, onMounted } from "vue";
-import { configure} from "vee-validate";
+import { configure } from "vee-validate";
 
-
-export const initForm = (props, emit) =>  {
-
+export const initForm = (props, emit) => {
   configure({
     validateOnBlur: false,
     validateOnChange: true,
@@ -29,6 +27,6 @@ export const initForm = (props, emit) =>  {
 
   return {
     isLoading,
-    onSubmitForm
-  }
-}
+    onSubmitForm,
+  };
+};

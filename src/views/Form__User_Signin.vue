@@ -59,7 +59,6 @@ import { configure, Form, Field } from "vee-validate";
 import { object, string } from "yup";
 import { initForm } from "../composables/composables__form";
 
-
 const props = defineProps({
   resultIsReady: {
     type: Boolean,

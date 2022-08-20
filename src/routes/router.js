@@ -24,11 +24,9 @@ const router = createRouter({
 router.beforeEach((to, _, next) => {
   const userStore = useUserStore();
   const c1 = to.matched.some((record) => record.meta.requiresAuth);
-  const c2 = !userStore.isLoggedIn
+  const c2 = !userStore.isLoggedIn;
   if (c1 && c2) {
-    const redirect = to.fullPath.includes("signout")
-      ? undefined
-      : to.fullPath
+    const redirect = to.fullPath.includes("signout") ? undefined : to.fullPath;
     return next({
       name: "route-user-signin",
       query: { redirect },

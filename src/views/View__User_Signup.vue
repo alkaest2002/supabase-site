@@ -3,8 +3,8 @@
     <base-title>Modulo di registrazione</base-title>
     <signup-form
       :initial-values="initialValues"
-      :result-is-ready="resultIsReady" 
-      @on-submit-form="onSignup" 
+      :result-is-ready="resultIsReady"
+      @on-submit-form="onSignup"
     />
   </div>
 </template>
@@ -25,13 +25,10 @@ const initialValues = {
   email: "",
   password: "",
   passwordConfirmation: "",
-  gdpr: false
-}
+  gdpr: false,
+};
 
-const onSignup = async ({
-  formData: { email, password },
-  setErrors,
-}) => {
+const onSignup = async ({ formData: { email, password }, setErrors }) => {
   try {
     resultIsReady.value = false;
     await userStore.signup(email, password);

@@ -10,8 +10,8 @@ const handleApiError = (error) => {
 supabase.auth.onAuthStateChange((event, session) => {
   console.log(event);
   const userStore = useUserStore();
-  userStore.session = session
-})
+  userStore.session = session;
+});
 
 export const useUserStore = defineStore({
   id: "auth",
@@ -29,10 +29,10 @@ export const useUserStore = defineStore({
     user() {
       return {
         user: this.session?.user?.email,
-        ...this.userProfile
-      }
+        ...this.userProfile,
+      };
     },
-    
+
     isLoggedIn() {
       return this.session != null;
     },
@@ -41,7 +41,10 @@ export const useUserStore = defineStore({
   actions: {
     async signup(email, password) {
       try {
-        const { error: errorWhenSignup } = await supabase.auth.signUp({ email, password });
+        const { error: errorWhenSignup } = await supabase.auth.signUp({
+          email,
+          password,
+        });
         if (errorWhenSignup) throw errorWhenSignup;
       } catch (error) {
         return handleApiError(error);
@@ -50,7 +53,8 @@ export const useUserStore = defineStore({
 
     async signin(email, password) {
       try {
-        const { error: errorWhenSignin } = await supabase.auth.signInWithPassword({ email, password });
+        const { error: errorWhenSignin } =
+          await supabase.auth.signInWithPassword({ email, password });
         if (errorWhenSignin) throw errorWhenSignin;
         const { data, error: errorWhenFetchingUserProfile } = await supabase
           .from("profiles")
@@ -71,7 +75,8 @@ export const useUserStore = defineStore({
       if (!userAuth.password) delete userAuth.password;
       try {
         if (Object.keys(userAuth).length > 0) {
-          const { error: errorWhenUpdatingUser } = await supabase.auth.updateUser(userAuth);
+          const { error: errorWhenUpdatingUser } =
+            await supabase.auth.updateUser(userAuth);
           if (errorWhenUpdatingUser) throw errorWhenUpdatingUser;
         }
         const { error: errorWhenUpdatingUserProfile } = await supabase
@@ -79,8 +84,7 @@ export const useUserStore = defineStore({
           .upsert(userProfileData);
         if (errorWhenUpdatingUserProfile) throw errorWhenUpdatingUserProfile;
         this.userProfile = userProfileData;
-        if (Object.keys(userAuth).length > 0)
-          return this.signout();
+        if (Object.keys(userAuth).length > 0) return this.signout();
         return Promise.resolve(false);
       } catch (error) {
         return handleApiError(error);

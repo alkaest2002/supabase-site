@@ -52,7 +52,10 @@
       </div>
     </div>
     <div id="password-box" class="box mt-5 p-5">
-      <p class="mb-4"><b>Attenzione</b>: completa questi campi solo se vuoi modificare la password.</p>
+      <p class="mb-4">
+        <b>Attenzione</b>: completa questi campi solo se vuoi modificare la
+        password.
+      </p>
       <div class="field">
         <label class="label">Password</label>
         <div class="control">
@@ -107,7 +110,6 @@ import { Form, Field } from "vee-validate";
 import { object, string, ref as yupRef } from "yup";
 import { initForm } from "../composables/composables__form";
 
-
 const props = defineProps({
   resultIsReady: {
     type: Boolean,
@@ -142,15 +144,16 @@ const { isLoading } = initForm(props, emit);
 const onSubmitForm = async (formData, { setErrors }) => {
   if (formData?.password?.length > 0 && !formData?.passwordConfirmation) {
     isLoading.value = false;
-    return setErrors({ passwordConfirmation: "Le password devono corrispondere" })
+    return setErrors({
+      passwordConfirmation: "Le password devono corrispondere",
+    });
   }
   emit("on-submit-form", { formData, setErrors });
 };
-
 </script>
 
 <style scoped lang="scss">
 #password-box {
-  background-color:#f0f0f0;
+  background-color: #f0f0f0;
 }
 </style>
