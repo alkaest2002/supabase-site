@@ -12,7 +12,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from "@/stores/store__users";
+import { useUserStore } from "@/stores/store__user";
 import SignupForm from "./Form__User_Signup.vue";
 
 const router = useRouter();
@@ -32,7 +32,7 @@ const onSignup = async ({ formData: { email, password }, setErrors }) => {
   try {
     resultIsReady.value = false;
     await userStore.signup(email, password);
-    router.push({ name: "route-user-confirm" });
+    router.push({ name: "route-user-verify" });
   } catch (error) {
     setErrors(error);
   } finally {

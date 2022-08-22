@@ -66,7 +66,7 @@
         :button-css="'is-medium is-info'"
         :disabled="isSubmitting || !gdpr"
       >
-        Registrati
+        registrati
       </base-loading-button>
     </div>
     <div v-if="errors.apiError" class="has-text-danger mt-3 mb-0">

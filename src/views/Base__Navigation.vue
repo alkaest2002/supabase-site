@@ -66,7 +66,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { useUserStore } from "@/stores/store__users";
+import { useUserStore } from "@/stores/store__user";
 
 const userStore = useUserStore();
 

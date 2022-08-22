@@ -1,10 +1,11 @@
-import { useUserStore } from "../stores/store__users";
+import { useUserStore } from "@/stores/store__user";
 import ViewUserSignup from "@/views/user/View__User_Signup.vue";
+import ViewUserVerify from "@/views/user/View__User_Verify.vue";
+import ViewUserVerified from "@/views/user/View__User_Verified.vue";
 import ViewUserSignin from "@/views/user/View__User_Signin.vue";
 import ViewUserMe from "@/views/user/View__User_Me.vue";
-import ViewUserVerifydEmail from "@/views/user/View__User_Verify_Email.vue";
-import ViewUserVerifiedEmail from "@/views/user/View__User_Verified_Email.vue";
-import ViewUserPasswordReset from "@/views/user/View__User_Password_Reset.vue";
+import ViewUserResetRequest from "@/views/user/View__User_Reset_Request.vue";
+import ViewUserResetUpdate from "@/views/user/View__User_Reset_Update.vue";
 
 const isNotLoggedin = () => {
   const userStore = useUserStore();
@@ -12,6 +13,18 @@ const isNotLoggedin = () => {
 };
 
 export default [
+  {
+    path: "/user/verify",
+    name: "route-user-verify",
+    component: ViewUserVerify,
+    beforeEnter: () => isNotLoggedin(),
+  },
+  {
+    path: "/user/verified",
+    name: "route-user-verified",
+    component: ViewUserVerified,
+    beforeEnter: () => isNotLoggedin(),
+  },
   {
     path: "/user/signin",
     name: "route-user-signin",
@@ -45,21 +58,15 @@ export default [
     beforeEnter: () => isNotLoggedin(),
   },
   {
-    path: "/user/confirm",
-    name: "route-user-confirm",
-    component: ViewUserVerifydEmail,
+    path: "/user/password-reset-request",
+    name: "route-user-password-reset-request",
+    component: ViewUserResetRequest,
     beforeEnter: () => isNotLoggedin(),
   },
   {
-    path: "/user/confirmed",
-    name: "route-user-confirmed",
-    component: ViewUserVerifiedEmail,
-    beforeEnter: () => isNotLoggedin(),
-  },
-  {
-    path: "/user/password-reset",
-    name: "route-user-password-reset",
-    component: ViewUserPasswordReset,
+    path: "/user/password-reset-update",
+    name: "route-user-password-reset-update",
+    component: ViewUserResetUpdate,
     beforeEnter: () => {
       const userStore = useUserStore();
       return userStore.resetAccessToken != null;

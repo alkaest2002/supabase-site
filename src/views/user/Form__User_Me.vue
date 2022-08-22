@@ -94,7 +94,7 @@
         :button-css="'is-info'"
         :disabled="isSubmitting"
       >
-        Aggiorna i tuoi dati
+        aggiorna i tuoi dati
       </base-loading-button>
       <button class="button is-danger" type="reset">Reset</button>
     </div>

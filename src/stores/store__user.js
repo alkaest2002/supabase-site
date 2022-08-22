@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { useRoute } from "vue-router";
 import { supabase } from "@/services/service__supabase";
 
 const handleApiError = (error) => {
@@ -8,18 +7,8 @@ const handleApiError = (error) => {
   });
 };
 
-supabase.auth.onAuthStateChange((event, session) => {
-  const userStore = useUserStore();
-  const route = useRoute();
-  if (event === "PASSWORD_RECOVERY") {
-    userStore.resetAccessToken = route.query.access_token;
-  } else {
-    userStore.session = session;
-  }
-});
-
 export const useUserStore = defineStore({
-  id: "store-users",
+  id: "store-user",
 
   persist: true,
 
@@ -97,12 +86,22 @@ export const useUserStore = defineStore({
       }
     },
 
-    async passwordReset(password) {
+    async passwordResetRequest(email) {
       try {
-        const { error: errorWhilePasswordReset } =
-          await supabase.auth.updateUser(this.resetAccessToken, { password });
+        const { error } = await supabase.auth.resetPasswordForEmail(email)
         this.resetAccessToken = null;
-        if (errorWhilePasswordReset) throw errorWhilePasswordReset;
+        if (error) throw error;
+        return Promise.resolve(true);
+      } catch (error) {
+        return handleApiError(error);
+      }
+    },
+
+    async passwordResetUpdate(password) {
+      try {
+        const { error } = await supabase.auth.updateUser(this.resetAccessToken, { password });
+        this.resetAccessToken = null;
+        if (error) throw error;
         return Promise.resolve(true);
       } catch (error) {
         return handleApiError(error);

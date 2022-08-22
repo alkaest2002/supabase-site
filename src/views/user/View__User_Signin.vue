@@ -8,7 +8,9 @@
     />
     <div class="mt-3">
       <small>
-        <a href="#" @click.prevent="onClickPasswordReset">Password dimenticata</a>
+        <router-link :to="{ name: 'route-user-password-reset-request'}">
+          Password dimenticata
+        </router-link>
       </small>
     </div>
   </div>
@@ -17,7 +19,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useUserStore } from "@/stores/store__users";
+import { useUserStore } from "@/stores/store__user";
 import SigninForm from "./Form__User_Signin.vue";
 
 const initialValues = {
@@ -44,8 +46,4 @@ const onSignin = async ({ formData: { email, password }, setErrors }) => {
     resultIsReady.value = true;
   }
 };
-
-const onClickPasswordReset = () => {
-  console.log("click")
-}
 </script>
