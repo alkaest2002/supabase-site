@@ -16,20 +16,25 @@ export const useUserStore = defineStore({
     return {
       userProfile: null,
       session: null,
-      resetAccessToken: null
+      lastAuthEvent: null,
     };
   },
 
   getters: {
     user() {
       return {
-        user: this.session?.user?.email,
+        id: this.session?.user?.id,
+        email: this.session?.user?.email,
         ...this.userProfile,
       };
     },
 
     isLoggedIn() {
-      return this.session != null;
+      return [
+        this.session != null,
+        !Object.keys(this.session).includes("provider_token"),
+        this.lastAuthEvent === "SIGNED_IN"
+      ].every(Boolean) ;
     },
   },
 
@@ -48,9 +53,10 @@ export const useUserStore = defineStore({
 
     async signin(email, password) {
       try {
-        const { error: errorWhileSignin } =
+        const { data: { session }, error: errorWhileSignin } =
           await supabase.auth.signInWithPassword({ email, password });
         if (errorWhileSignin) throw errorWhileSignin;
+        this.session = session;
         const { data, error: errorWhileFetchingUserProfile } = await supabase
           .from("profiles")
           .select();
@@ -99,8 +105,7 @@ export const useUserStore = defineStore({
 
     async passwordResetUpdate(password) {
       try {
-        const { error } = await supabase.auth.updateUser(this.resetAccessToken, { password });
-        this.resetAccessToken = null;
+        const { error } = await supabase.auth.updateUser({ password });
         if (error) throw error;
         return Promise.resolve(true);
       } catch (error) {

@@ -29,7 +29,7 @@ const onUserUpdate = async ({ formData, setErrors }) => {
   try {
     resultIsReady.value = false;
     const shouldLogout = await userStore.updateUser(formData);
-    if (shouldLogout) router.push({ name: "route-signout" });
+    if (shouldLogout) router.push({ name: "route-user-signout" });
   } catch (error) {
     setErrors(error);
   } finally {

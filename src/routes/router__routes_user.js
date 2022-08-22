@@ -67,9 +67,5 @@ export default [
     path: "/user/password-reset-update",
     name: "route-user-password-reset-update",
     component: ViewUserResetUpdate,
-    beforeEnter: () => {
-      const userStore = useUserStore();
-      return userStore.resetAccessToken != null;
-    },
   },
 ];

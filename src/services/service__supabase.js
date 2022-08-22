@@ -5,9 +5,8 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 const options = {
   schema: "public",
-  headers: { "x-my-custom-header": "sippas" },
   autoRefreshToken: true,
-  persistSession: true,
+  persistSession: false,
   detectSessionInUrl: true,
 };
 

@@ -29,7 +29,7 @@ const onResetPassword = async ({ formData: { email }, setErrors }) => {
   try {
     resultIsReady.value = false;
     await userStore.passwordResetRequest(email);
-    router.push({ path: "route-home" });
+    router.push({ name: "route-main" });
   } catch (error) {
     setErrors(error);
   } finally {

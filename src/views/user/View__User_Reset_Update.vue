@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/store__user";
 import userResetUpdateForm from "./Form__User_Reset_Update.vue";
@@ -30,11 +30,16 @@ const onResetPassword = async ({ formData: { password }, setErrors }) => {
   try {
     resultIsReady.value = false;
     await userStore.passwordResetUpdate(password);
-    router.push({ path: "route-home" });
+    router.push({ name: "route-main" });
   } catch (error) {
     setErrors(error);
   } finally {
     resultIsReady.value = true;
   }
 };
+
+onBeforeMount(() => {
+  if (router.currentRoute.value.hash.includes("error"))
+    router.push({ name: "route-home"});
+})
 </script>

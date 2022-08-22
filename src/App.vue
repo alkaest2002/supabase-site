@@ -9,20 +9,16 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
 import { useUserStore } from "@/stores/store__user";
 import { supabase } from "@/services/service__supabase";
 
 const userStore = useUserStore();
 
-const route = useRoute();
-
 supabase.auth.onAuthStateChange((event, session) => {
-  if (event === "PASSWORD_RECOVERY") {
-    userStore.resetAccessToken = route.query.access_token;
-  } else {
-    userStore.session = session;
-  }
+  userStore.$patch({
+    session,
+    lastAuthEvent: event
+  });
 });
 </script>
 
