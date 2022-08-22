@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { supabase } from "../services/service__supabase";
+import { useRoute } from "vue-router";
+import { supabase } from "@/services/service__supabase";
 
 const handleApiError = (error) => {
   return Promise.reject({
@@ -8,9 +9,13 @@ const handleApiError = (error) => {
 };
 
 supabase.auth.onAuthStateChange((event, session) => {
-  console.log(event);
   const userStore = useUserStore();
-  userStore.session = session;
+  const route = useRoute();
+  if (event === "PASSWORD_RECOVERY") {
+    userStore.resetAccessToken = route.query.access_token;
+  } else {
+    userStore.session = session;
+  }
 });
 
 export const useUserStore = defineStore({
@@ -22,6 +27,7 @@ export const useUserStore = defineStore({
     return {
       userProfile: null,
       session: null,
+      resetAccessToken: null
     };
   },
 
@@ -41,11 +47,11 @@ export const useUserStore = defineStore({
   actions: {
     async signup(email, password) {
       try {
-        const { error: errorWhenSignup } = await supabase.auth.signUp({
+        const { error: errorWhileSignup } = await supabase.auth.signUp({
           email,
           password,
         });
-        if (errorWhenSignup) throw errorWhenSignup;
+        if (errorWhileSignup) throw errorWhileSignup;
       } catch (error) {
         return handleApiError(error);
       }
@@ -53,13 +59,13 @@ export const useUserStore = defineStore({
 
     async signin(email, password) {
       try {
-        const { error: errorWhenSignin } =
+        const { error: errorWhileSignin } =
           await supabase.auth.signInWithPassword({ email, password });
-        if (errorWhenSignin) throw errorWhenSignin;
-        const { data, error: errorWhenFetchingUserProfile } = await supabase
+        if (errorWhileSignin) throw errorWhileSignin;
+        const { data, error: errorWhileFetchingUserProfile } = await supabase
           .from("profiles")
           .select();
-        if (errorWhenFetchingUserProfile) throw errorWhenFetchingUserProfile;
+        if (errorWhileFetchingUserProfile) throw errorWhileFetchingUserProfile;
         this.userProfile = data[0];
         return Promise.resolve(true);
       } catch (error) {
@@ -75,17 +81,29 @@ export const useUserStore = defineStore({
       if (!userAuth.password) delete userAuth.password;
       try {
         if (Object.keys(userAuth).length > 0) {
-          const { error: errorWhenUpdatingUser } =
+          const { error: errorWhileUpdatingUser } =
             await supabase.auth.updateUser(userAuth);
-          if (errorWhenUpdatingUser) throw errorWhenUpdatingUser;
+          if (errorWhileUpdatingUser) throw errorWhileUpdatingUser;
         }
-        const { error: errorWhenUpdatingUserProfile } = await supabase
+        const { error: errorWhileUpdatingUserProfile } = await supabase
           .from("profiles")
           .upsert(userProfileData);
-        if (errorWhenUpdatingUserProfile) throw errorWhenUpdatingUserProfile;
+        if (errorWhileUpdatingUserProfile) throw errorWhileUpdatingUserProfile;
         this.userProfile = userProfileData;
         if (Object.keys(userAuth).length > 0) return this.signout();
         return Promise.resolve(false);
+      } catch (error) {
+        return handleApiError(error);
+      }
+    },
+
+    async passwordReset(password) {
+      try {
+        const { error: errorWhilePasswordReset } =
+          await supabase.auth.updateUser(this.resetAccessToken, { password });
+        this.resetAccessToken = null;
+        if (errorWhilePasswordReset) throw errorWhilePasswordReset;
+        return Promise.resolve(true);
       } catch (error) {
         return handleApiError(error);
       }

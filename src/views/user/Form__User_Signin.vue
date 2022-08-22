@@ -54,10 +54,9 @@
 
 <script setup>
 /* eslint-disable no-unused-vars */
-import { ref, watch, onMounted } from "vue";
-import { configure, Form, Field } from "vee-validate";
+import { Form, Field } from "vee-validate";
 import { object, string } from "yup";
-import { initForm } from "../composables/composables__form";
+import { initForm } from "@/composables/composables__form";
 
 const props = defineProps({
   resultIsReady: {

@@ -12,7 +12,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/store__users";
+import { useUserStore } from "@/stores/store__users";
 import SignupForm from "./Form__User_Signup.vue";
 
 const router = useRouter();

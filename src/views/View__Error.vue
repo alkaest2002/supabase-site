@@ -12,12 +12,6 @@
   </section>
 </template>
 
-<script>
-export default {
-  name: "PageNotFound",
-};
-</script>
-
 <style lang="scss" scoped>
 #error-section {
   height: 100%;

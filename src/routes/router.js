@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useUserStore } from "../stores/store__users";
-import ViewError from "../views/View__Error.vue";
+import { useUserStore } from "@/stores/store__users";
+import ViewError from "@/views/View__Error.vue";
 
 import mainRoutes from "./router__routes_main";
 import userRoutes from "./router__routes_user";
@@ -21,7 +21,7 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, _, next) => {
+router.beforeEach((to, from, next) => {
   const userStore = useUserStore();
   const c1 = to.matched.some((record) => record.meta.requiresAuth);
   const c2 = !userStore.isLoggedIn;

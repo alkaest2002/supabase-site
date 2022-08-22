@@ -6,13 +6,18 @@
       :result-is-ready="resultIsReady"
       @on-submit-form="onSignin"
     />
+    <div class="mt-3">
+      <small>
+        <a href="#" @click.prevent="onClickPasswordReset">Password dimenticata</a>
+      </small>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useUserStore } from "../stores/store__users";
+import { useUserStore } from "@/stores/store__users";
 import SigninForm from "./Form__User_Signin.vue";
 
 const initialValues = {
@@ -39,4 +44,8 @@ const onSignin = async ({ formData: { email, password }, setErrors }) => {
     resultIsReady.value = true;
   }
 };
+
+const onClickPasswordReset = () => {
+  console.log("click")
+}
 </script>

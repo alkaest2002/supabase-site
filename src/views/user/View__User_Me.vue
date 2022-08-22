@@ -12,7 +12,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/store__users";
+import { useUserStore } from "@/stores/store__users";
 import UpdateUserForm from "./Form__User_Me.vue";
 
 const router = useRouter();

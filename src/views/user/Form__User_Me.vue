@@ -108,7 +108,7 @@
 /* eslint-disable no-unused-vars */
 import { Form, Field } from "vee-validate";
 import { object, string, ref as yupRef } from "yup";
-import { initForm } from "../composables/composables__form";
+import { initForm } from "@/composables/composables__form";
 
 const props = defineProps({
   resultIsReady: {
