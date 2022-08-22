@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useUserStore } from "../stores/pinia__user";
+import { useUserStore } from "../stores/store__users";
 import ViewError from "../views/View__Error.vue";
 
 import mainRoutes from "./router__routes_main";

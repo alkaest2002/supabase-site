@@ -12,7 +12,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useUserStore } from "../stores/pinia__user";
+import { useUserStore } from "../stores/store__users";
 import SigninForm from "./Form__User_Signin.vue";
 
 const initialValues = {

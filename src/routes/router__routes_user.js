@@ -1,4 +1,4 @@
-import { useUserStore } from "../stores/pinia__user";
+import { useUserStore } from "../stores/store__users";
 import ViewUserSignup from "../views/View__User_Signup.vue";
 import ViewUserSignin from "../views/View__User_Signin.vue";
 import ViewUserMe from "../views/View__User_Me.vue";

@@ -14,7 +14,7 @@ supabase.auth.onAuthStateChange((event, session) => {
 });
 
 export const useUserStore = defineStore({
-  id: "auth",
+  id: "store-users",
 
   persist: true,
 

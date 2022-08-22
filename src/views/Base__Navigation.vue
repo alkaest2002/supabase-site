@@ -66,7 +66,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { useUserStore } from "../stores/pinia__user";
+import { useUserStore } from "../stores/store__users";
 
 const userStore = useUserStore();
 
