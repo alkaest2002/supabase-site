@@ -30,7 +30,7 @@ const onResetPassword = async ({ formData: { password }, setErrors }) => {
   try {
     resultIsReady.value = false;
     await userStore.passwordResetUpdate(password);
-    router.push({ name: "route-main" });
+    router.push({ name: "route-user-signin" });
   } catch (error) {
     setErrors(error);
   } finally {

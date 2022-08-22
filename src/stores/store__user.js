@@ -32,7 +32,7 @@ export const useUserStore = defineStore({
     isLoggedIn() {
       return [
         this.session != null,
-        !Object.keys(this.session).includes("provider_token"),
+        !Object.keys(this.session || {}).includes("provider_token"),
         this.lastAuthEvent === "SIGNED_IN"
       ].every(Boolean) ;
     },
@@ -107,7 +107,7 @@ export const useUserStore = defineStore({
       try {
         const { error } = await supabase.auth.updateUser({ password });
         if (error) throw error;
-        return Promise.resolve(true);
+        return this.signout();
       } catch (error) {
         return handleApiError(error);
       }
