@@ -42,7 +42,7 @@
         <Field
           name="email"
           type="text"
-          placeholder="g.verdi@gmail.com"
+          placeholder="inserisci email"
           class="input"
           :class="{ 'is-danger': errors.email }"
         />
@@ -62,7 +62,7 @@
           <Field
             name="password"
             type="password"
-            placeholder="password di Giuseppe Verdi"
+            placeholder="inserisci password"
             class="input"
             :class="{ 'is-danger': errors.password }"
           />
@@ -77,7 +77,7 @@
           <Field
             name="passwordConfirmation"
             type="password"
-            placeholder="conferma password di Giuseppe Verdi"
+            placeholder="conferma password"
             class="input"
             :class="{ 'is-danger': errors.passwordConfirmation }"
           />

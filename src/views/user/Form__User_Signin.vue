@@ -13,7 +13,7 @@
           name="email"
           type="text"
           class="input"
-          placeholder="mario.rossi@mail.com"
+          placeholder="inserisci email"
           :class="{ 'is-danger': errors.email }"
         />
         <div class="has-text-danger">
@@ -28,7 +28,7 @@
           name="password"
           type="password"
           class="input"
-          placeholder="password di mario rossi"
+          placeholder="inserisci password"
           :class="{ 'is-danger': errors.password }"
         />
         <div class="has-text-danger">

@@ -12,7 +12,7 @@
         <Field
           name="email"
           type="email"
-          placeholder="email"
+          placeholder="inserisci email"
           class="input"
           :class="{ 'is-danger': errors.email }"
         />

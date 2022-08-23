@@ -107,7 +107,7 @@ export const useUserStore = defineStore({
       try {
         const { error } = await supabase.auth.updateUser({ password });
         if (error) throw error;
-        return this.signout();
+        return await this.signout();
       } catch (error) {
         return handleApiError(error);
       }
