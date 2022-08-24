@@ -45,6 +45,13 @@
       >
         entra
       </base-loading-button>
+      <div class="mt-3">
+        <small>
+          <router-link :to="{ name: 'route-user-password-reset-request'}">
+            Password dimenticata
+          </router-link>
+        </small>
+      </div>
     </div>
     <div v-if="errors.apiError" class="has-text-danger mt-3 mb-0">
       {{ errors.apiError }}

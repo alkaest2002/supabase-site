@@ -6,13 +6,6 @@
       :result-is-ready="resultIsReady"
       @on-submit-form="onSignin"
     />
-    <div class="mt-3">
-      <small>
-        <router-link :to="{ name: 'route-user-password-reset-request'}">
-          Password dimenticata
-        </router-link>
-      </small>
-    </div>
   </div>
 </template>
 
