@@ -43,7 +43,7 @@
         :button-css="'is-medium is-info'"
         :disabled="isSubmitting || !(email && password)"
       >
-        login
+        entra
       </base-loading-button>
     </div>
     <div v-if="errors.apiError" class="has-text-danger mt-3 mb-0">

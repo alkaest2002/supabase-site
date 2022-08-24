@@ -22,22 +22,31 @@
         :class="{'is-active': burgerIsActive}"
       >
         <div class="navbar-start">
-          <router-link class="navbar-item" :to="{ name: 'route-home' }">
-            home
-          </router-link>
           <router-link
-            v-if="isLoggedIn"
             class="navbar-item"
-            :to="{ name: 'route-user-me' }"
+            :to="{ name: 'route-blog-list' }"
           >
-            area personale
+            blog
+          </router-link>
+           <router-link
+            class="navbar-item"
+            :to="{ name: 'route-about' }"
+          >
+            about
           </router-link>
         </div>
-
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
               <div v-if="isLoggedIn">
+               <template v-if="isLoggedIn">
+                <router-link
+                  class="button is-light"
+                  :to="{ name: 'route-user-me' }"
+                >
+                  area personale
+                </router-link>
+              </template>
                 <button
                   class="button is-primary"
                   :class="{'is-loading': isLoading}"

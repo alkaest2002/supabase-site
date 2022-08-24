@@ -1,17 +1,7 @@
 <template>
   <div class="mb-6">
-    <router-link class="is-size-4 has-text-dark has-text-weight-bold" :to="{ name: goTo }">
+    <span class="is-size-4 has-text-dark has-text-weight-bold">
       <slot />
-    </router-link>
+    </span>
   </div>
 </template>
-
-<script setup>
-/* eslint-disable no-unused-vars */
-const props = defineProps({
-  goTo: {
-    type: String,
-    default: "route-home",
-  },
-});
-</script>

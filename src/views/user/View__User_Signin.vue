@@ -39,7 +39,7 @@ const onSignin = async ({ formData: { email, password }, setErrors }) => {
   try {
     resultIsReady.value = false;
     await userStore.signin(email, password);
-    router.push({ path: route.query.redirect || "me" });
+    router.push({ path: route.query.redirect || "/" });
   } catch (error) {
     setErrors(error);
   } finally {

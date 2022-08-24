@@ -4,10 +4,12 @@ import ViewError from "@/views/View__Error.vue";
 
 import mainRoutes from "./router__routes_main";
 import userRoutes from "./router__routes_user";
+import blogRouter from "./router__routes_blog";
 
 const routes = [
   ...mainRoutes,
   ...userRoutes,
+  ...blogRouter,
   {
     path: "/:catchAll(.*)",
     name: "route-not-found",
