@@ -38,7 +38,7 @@ export default [
       const userStore = useUserStore();
       try {
         await userStore.signout();
-        return { name: "route-home", query: { toastMessage: "logout effettuato" }};
+        return { name: "route-home" };
       } catch (err) {
         return false;
       }

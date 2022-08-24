@@ -37,39 +37,7 @@
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
-            <div class="buttons">
-              <div v-if="isLoggedIn">
-               <template v-if="isLoggedIn">
-                <router-link
-                  class="button is-light"
-                  :to="{ name: 'route-user-me' }"
-                >
-                  area personale
-                </router-link>
-              </template>
-                <button
-                  class="button is-primary"
-                  :class="{'is-loading': isLoading}"
-                  @click="onClickSignout"
-                >
-                  esci
-                </button>
-              </div>
-              <div v-else>
-                <router-link
-                  class="button is-light"
-                  :to="{ name: 'route-user-signin' }"
-                >
-                  entra
-                </router-link>
-                <router-link
-                  class="button is-primary"
-                  :to="{ name: 'route-user-signup' }"
-                >
-                  registrati
-                </router-link>
-              </div>
-            </div>
+            <component :is="authComponent" />
           </div>
         </div>
       </div>
@@ -79,22 +47,18 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/store__user";
+import NavigatioSignedIn from "./Base__Navigation_SignedIn.vue";
+import NavigationNotSignedIn from "./Base__Navigation_NotSignedIn.vue";
 
 const userStore = useUserStore();
 
-const router = useRouter();
-
 const burgerIsActive = ref(false);
 
-const isLoading = ref(false);
+const authComponent = computed(() => {
+  return userStore.isLoggedIn
+    ? NavigatioSignedIn
+    : NavigationNotSignedIn
+});
 
-const isLoggedIn = computed(() => userStore.isLoggedIn);
-
-const onClickSignout = () => {
-  isLoading.value = true;
-  router.push({ name: 'route-user-signout' });
-  isLoading.value = false;
-}
 </script>

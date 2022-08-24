@@ -35,7 +35,7 @@ const onSignin = async ({ formData: { email, password }}) => {
   try {
     resultIsReady.value = false;
     await userStore.signin(email, password);
-    router.push({ path: route.query.redirect || "/", query: { toastMessage: "login effettuato" }});
+    router.push({ path: route.query.redirect || "/" });
   } catch ({ apiError }) {
     toast.error(apiError);
   } finally {
