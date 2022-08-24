@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import { supabase } from "@/services/service__supabase";
+import { supabase, translateSupabaseMessage } from "@/services/service__supabase";
 
 const handleApiError = (error) => {
   return Promise.reject({
-    apiError: error.error_description || error.message || "generic error",
+    apiError: translateSupabaseMessage(error.error_description || error.message || "generic error"),
   });
 };
 

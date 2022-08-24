@@ -10,4 +10,15 @@ const options = {
   detectSessionInUrl: true,
 };
 
+const supabaseMessages = {
+  "generic error": "errore del server",
+  "Invalid login credentials": "credenziali non valide", 
+ }
+
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, options);
+
+export const translateSupabaseMessage = (message) => {
+  return supabaseMessages[message]
+    ? supabaseMessages[message]
+    : message
+}
