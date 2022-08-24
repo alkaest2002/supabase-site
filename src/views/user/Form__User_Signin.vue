@@ -28,7 +28,7 @@
           name="password"
           type="password"
           class="input"
-          placeholder="inserisci password"
+          placeholder="inserisci password (almeno 6 caratteri)"
           :class="{ 'is-danger': errors.password }"
         />
         <div class="has-text-danger">

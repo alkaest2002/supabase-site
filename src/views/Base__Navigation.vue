@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-light" role="navigation" aria-label="main navigation">
     <div class="container is-max-widescreen">
       <div class="navbar-brand">
         <router-link class="navbar-item" :to="{ name: 'route-home' }">
@@ -8,16 +8,19 @@
         <a
           role="button"
           class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
+          :class="{'is-active': burgerIsActive}"
+          @click="burgerIsActive = !burgerIsActive"
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div id="navbarBase" class="navbar-menu">
+      <div 
+        id="navbarBase" 
+        class="navbar-menu"
+        :class="{'is-active': burgerIsActive}"
+      >
         <div class="navbar-start">
           <router-link class="navbar-item" :to="{ name: 'route-home' }">
             home
@@ -35,12 +38,13 @@
           <div class="navbar-item">
             <div class="buttons">
               <div v-if="isLoggedIn">
-                <router-link
+                <button
                   class="button is-primary"
-                  :to="{ name: 'route-user-signout' }"
+                  :class="{'is-loading': isLoading}"
+                  @click="onClickSignout"
                 >
                   esci
-                </router-link>
+                </button>
               </div>
               <div v-else>
                 <router-link
@@ -65,10 +69,23 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/store__user";
 
 const userStore = useUserStore();
 
+const router = useRouter();
+
+const burgerIsActive = ref(false);
+
+const isLoading = ref(false);
+
 const isLoggedIn = computed(() => userStore.isLoggedIn);
+
+const onClickSignout = () => {
+  isLoading.value = true;
+  router.push({ name: 'route-user-signout' });
+  isLoading.value = false;
+}
 </script>

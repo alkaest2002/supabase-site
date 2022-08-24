@@ -12,7 +12,7 @@
         <Field
           name="password"
           type="password"
-          placeholder="inserisci password"
+          placeholder="inserisci password (almeno 6 caratteri)"
           class="input"
           :class="{ 'is-danger': errors.password }"
         />
