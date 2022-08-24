@@ -12,6 +12,7 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
 import { useUserStore } from "@/stores/store__user";
 import userResetUpdateForm from "./Form__User_Reset_Update.vue";
 
@@ -22,17 +23,19 @@ const initialValues = {
 
 const router = useRouter();
 
+const toast = useToast();
+
 const userStore = useUserStore();
 
 const resultIsReady = ref(false);
 
-const onResetPassword = async ({ formData: { password }, setErrors }) => {
+const onResetPassword = async ({ formData: { password } }) => {
   try {
     resultIsReady.value = false;
     await userStore.passwordResetUpdate(password);
     router.push({ name: "route-user-signin" });
-  } catch (error) {
-    setErrors(error);
+  } catch ({ apiError }) {
+    toast.error(apiError);
   } finally {
     resultIsReady.value = true;
   }

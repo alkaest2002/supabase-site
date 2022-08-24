@@ -38,7 +38,7 @@ export default [
       const userStore = useUserStore();
       try {
         await userStore.signout();
-        return { name: "route-user-signin" };
+        return { name: "route-home", query: { toastMessage: "logout effettuato" }};
       } catch (err) {
         return false;
       }
@@ -67,5 +67,6 @@ export default [
     path: "/user/password-reset-update",
     name: "route-user-password-reset-update",
     component: ViewUserResetUpdate,
+    beforeEnter: () => isNotLoggedin(),
   },
 ];
