@@ -1,15 +1,12 @@
 <template>
   <div class="navbar-item">
     <div class="buttons">
-      <router-link
-        class="button is-light"
-        :to="{ name: 'route-user-me' }"
-      >
+      <router-link class="button is-light" :to="{ name: 'route-user-me' }">
         area personale
       </router-link>
       <button
         class="button is-primary"
-        :class="{'is-loading': isLoading}"
+        :class="{ 'is-loading': isLoading }"
         @click="onClickSignout"
       >
         esci
@@ -28,6 +25,6 @@ const isLoading = ref(false);
 
 const onClickSignout = () => {
   isLoading.value = true;
-  router.push({ name: 'route-user-signout' });
+  router.push({ name: "route-user-signout" });
 };
 </script>

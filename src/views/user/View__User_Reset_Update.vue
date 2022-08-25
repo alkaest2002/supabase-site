@@ -43,6 +43,6 @@ const onResetPassword = async ({ formData: { password } }) => {
 
 onBeforeMount(() => {
   if (router.currentRoute.value.hash.includes("error"))
-    router.push({ name: "route-home"});
-})
+    router.push({ name: "route-home" });
+});
 </script>

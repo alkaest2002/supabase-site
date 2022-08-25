@@ -1,9 +1,14 @@
 import { defineStore } from "pinia";
-import { supabase, translateSupabaseMessage } from "@/services/service__supabase";
+import {
+  supabase,
+  translateSupabaseMessage,
+} from "@/services/service__supabase";
 
 const handleApiError = (error) => {
   return Promise.reject({
-    apiError: translateSupabaseMessage(error.error_description || error.message || "generic error"),
+    apiError: translateSupabaseMessage(
+      error.error_description || error.message || "generic error"
+    ),
   });
 };
 
@@ -33,8 +38,8 @@ export const useUserStore = defineStore({
       return [
         this.session != null,
         !Object.keys(this.session || {}).includes("provider_token"),
-        this.lastAuthEvent === "SIGNED_IN"
-      ].every(Boolean) ;
+        this.lastAuthEvent === "SIGNED_IN",
+      ].every(Boolean);
     },
   },
 
@@ -53,8 +58,10 @@ export const useUserStore = defineStore({
 
     async signin(email, password) {
       try {
-        const { data: { session }, error: errorWhileSignin } =
-          await supabase.auth.signInWithPassword({ email, password });
+        const {
+          data: { session },
+          error: errorWhileSignin,
+        } = await supabase.auth.signInWithPassword({ email, password });
         if (errorWhileSignin) throw errorWhileSignin;
         this.session = session;
         const { data, error: errorWhileFetchingUserProfile } = await supabase
@@ -94,7 +101,7 @@ export const useUserStore = defineStore({
 
     async passwordResetRequest(email) {
       try {
-        const { error } = await supabase.auth.resetPasswordForEmail(email)
+        const { error } = await supabase.auth.resetPasswordForEmail(email);
         this.resetAccessToken = null;
         if (error) throw error;
         return Promise.resolve(true);

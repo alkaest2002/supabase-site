@@ -17,7 +17,7 @@ const userStore = useUserStore();
 supabase.auth.onAuthStateChange((event, session) => {
   userStore.$patch({
     session,
-    lastAuthEvent: event
+    lastAuthEvent: event,
   });
 });
 </script>

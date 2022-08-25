@@ -24,11 +24,9 @@ app
   .component("BaseNavigation", BaseNavigation)
   .use(pinia)
   .use(router)
-  .use(Toast, 
-    { 
-      timeout: 1850, 
-      position: "top-center", 
-      maxToasts: 5, 
-    }
-  )
+  .use(Toast, {
+    timeout: 1850,
+    position: "top-center",
+    maxToasts: 5,
+  })
   .mount("#app");

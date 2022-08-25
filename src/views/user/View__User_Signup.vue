@@ -31,12 +31,12 @@ const initialValues = {
   gdpr: false,
 };
 
-const onSignup = async ({ formData: { email, password }}) => {
+const onSignup = async ({ formData: { email, password } }) => {
   try {
     resultIsReady.value = false;
     await userStore.signup(email, password);
     router.push({ name: "route-user-verify" });
-  }  catch ({ apiError }) {
+  } catch ({ apiError }) {
     toast.error(apiError);
   } finally {
     resultIsReady.value = true;

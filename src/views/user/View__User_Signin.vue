@@ -31,7 +31,7 @@ const userStore = useUserStore();
 
 const resultIsReady = ref(false);
 
-const onSignin = async ({ formData: { email, password }}) => {
+const onSignin = async ({ formData: { email, password } }) => {
   try {
     resultIsReady.value = false;
     await userStore.signin(email, password);

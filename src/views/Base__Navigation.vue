@@ -8,7 +8,7 @@
         <a
           role="button"
           class="navbar-burger"
-          :class="{'is-active': burgerIsActive}"
+          :class="{ 'is-active': burgerIsActive }"
           @click="burgerIsActive = !burgerIsActive"
         >
           <span aria-hidden="true"></span>
@@ -16,22 +16,16 @@
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div 
-        id="navbarBase" 
+      <div
+        id="navbarBase"
         class="navbar-menu"
-        :class="{'is-active': burgerIsActive}"
+        :class="{ 'is-active': burgerIsActive }"
       >
         <div class="navbar-start">
-          <router-link
-            class="navbar-item"
-            :to="{ name: 'route-blog-list' }"
-          >
+          <router-link class="navbar-item" :to="{ name: 'route-blog-list' }">
             blog
           </router-link>
-           <router-link
-            class="navbar-item"
-            :to="{ name: 'route-about' }"
-          >
+          <router-link class="navbar-item" :to="{ name: 'route-about' }">
             about
           </router-link>
         </div>
@@ -56,9 +50,6 @@ const userStore = useUserStore();
 const burgerIsActive = ref(false);
 
 const authComponent = computed(() => {
-  return userStore.isLoggedIn
-    ? NavigatioSignedIn
-    : NavigationNotSignedIn
+  return userStore.isLoggedIn ? NavigatioSignedIn : NavigationNotSignedIn;
 });
-
 </script>

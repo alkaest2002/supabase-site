@@ -47,7 +47,7 @@
       </base-loading-button>
       <div class="mt-3">
         <small>
-          <router-link :to="{ name: 'route-user-password-reset-request'}">
+          <router-link :to="{ name: 'route-user-password-reset-request' }">
             Password dimenticata
           </router-link>
         </small>
